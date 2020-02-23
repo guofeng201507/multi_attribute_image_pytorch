@@ -11,29 +11,29 @@ import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
 from torch.nn.parallel import DataParallel
-import pickle
+import pickle as pickle
 import time
 import argparse
 
-# from baseline.dataset import add_transforms
-
+from baseline.dataset import add_transforms
 from baseline.dataset.Dataset import AttDataset
 from baseline.model.DeepMAR import DeepMAR_ResNet50
-from baseline.model.DeepMAR import DeepMAR_ResNet50_ExtractFeature
+from baseline.model.DeepMAR import DeepMAR_ResNet50_ExtractFeature 
 from baseline.utils.evaluate import attribute_evaluate
 from baseline.utils.utils import str2bool
 from baseline.utils.utils import transfer_optim_state
 from baseline.utils.utils import time_str
 from baseline.utils.utils import save_ckpt, load_ckpt
-from baseline.utils.utils import load_state_dict
+from baseline.utils.utils import load_state_dict 
 from baseline.utils.utils import ReDirectSTD
 from baseline.utils.utils import adjust_lr_staircase
 from baseline.utils.utils import set_devices
 from baseline.utils.utils import AverageMeter
-from baseline.utils.utils import to_scalar
-from baseline.utils.utils import may_set_mode
-from baseline.utils.utils import may_mkdir
+from baseline.utils.utils import to_scalar 
+from baseline.utils.utils import may_set_mode 
+from baseline.utils.utils import may_mkdir 
 from baseline.utils.utils import set_seed
+
 
 class Config(object):
     def __init__(self):
@@ -186,10 +186,10 @@ if cfg.log_to_file:
 
 # dump the configuration to log.
 import pprint
-# print('------------------------------')
-# print('cfg.__dict__')
+print(('-' * 60))
+print('cfg.__dict__')
 pprint.pprint(cfg.__dict__)
-# print('-' * 60)
+print(('-' * 60))
 
 # set the random seed
 if cfg.set_seed:
