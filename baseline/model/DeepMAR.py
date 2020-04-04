@@ -66,7 +66,7 @@ class DeepMAR_ResNet50_ExtractFeature(object):
 
         # imgs should be Variable
         if not isinstance(imgs, Variable):
-            print 'imgs should be type: Variable'
+            print('imgs should be type: Variable')
             raise ValueError
         score = self.model(imgs)
         score = score.data.cpu().numpy()

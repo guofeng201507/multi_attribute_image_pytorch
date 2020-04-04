@@ -94,8 +94,8 @@ class RecentAverageMeter(object):
         self.val = 0
 
     def update(self, value):
-        self.val = val
-        self.fifo.append(val)
+        self.val = value
+        self.fifo.append(value)
         if len(self.fifo) > self.hist_size:
             del self.fifo[0]
     @property
@@ -229,7 +229,7 @@ def load_state_dict(model, src_state_dict):
             param = param.data
         try:
             dest_state_dict[name].copy_(param)
-        except Exception, msg:
+        except Exception as msg:
             print("Warning: Error occurs when copying '{}': {}"
                 .format(name, str(msg)))
 
