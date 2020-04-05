@@ -1,0 +1,977 @@
+C:\Users\guofe\workspace\multi_attribute_pytorch\venv35\Scripts\python.exe C:/Users/guofe/workspace/multi_attribute_pytorch/script/experiment/train_deepmar_resnet50.py
+------------------------------------------------------------
+cfg.__dict__
+{'batch_size': 32,
+ 'ckpt_file': '',
+ 'dataset': '../dataset/peta/peta_dataset.pkl',
+ 'dataset_name': 'peta',
+ 'epochs_per_save': 50,
+ 'epochs_per_val': 10,
+ 'exp_dir': 'exp\\deepmar_resnet50\\peta\\partition0\\run1',
+ 'exp_subpath': 'deepmar_resnet50',
+ 'finetuned_params_lr': 0.001,
+ 'load_model_weight': False,
+ 'log_to_file': False,
+ 'mean': [0.485, 0.456, 0.406],
+ 'mirror': True,
+ 'model_kwargs': {'drop_pool5': True,
+                  'drop_pool5_rate': 0.5,
+                  'last_conv_stride': 2,
+                  'num_att': 35},
+ 'model_weight_file': '',
+ 'new_params_lr': 0.001,
+ 'partition': '../dataset/peta/peta_partition.pkl',
+ 'partition_idx': 0,
+ 'rand_seed': None,
+ 'resize': (224, 224),
+ 'resume': False,
+ 'run': 1,
+ 'set_seed': False,
+ 'sgd_momentum': 0.9,
+ 'sgd_weight_decay': 0.0005,
+ 'split': 'trainval',
+ 'staircase_decay_at_epochs': (50, 100),
+ 'staircase_decay_multiple_factor': 0.1,
+ 'std': [0.229, 0.224, 0.225],
+ 'stderr_file': 'exp\\deepmar_resnet50\\peta\\partition0\\run1\\log\\stderr_2020-04-05_23:59:28.txt',
+ 'stdout_file': 'exp\\deepmar_resnet50\\peta\\partition0\\run1\\log\\stdout_2020-04-05_23:59:28.txt',
+ 'steps_per_log': 20,
+ 'sys_device_ids': (0,),
+ 'test_kwargs': {},
+ 'test_only': False,
+ 'test_split': 'test',
+ 'total_epochs': 150,
+ 'weighted_entropy': True,
+ 'workers': 2}
+------------------------------------------------------------
+C:\Users\guofe\workspace\multi_attribute_pytorch\script\experiment\baseline\model\DeepMAR.py:42: UserWarning: nn.init.normal is now deprecated in favor of nn.init.normal_.
+  init.normal(self.classifier.weight, std=0.001)
+C:\Users\guofe\workspace\multi_attribute_pytorch\script\experiment\baseline\model\DeepMAR.py:43: UserWarning: nn.init.constant is now deprecated in favor of nn.init.constant_.
+  init.constant(self.classifier.bias, 0)
+DeepMAR_ResNet50(
+  (base): ResNet(
+    (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace=True)
+    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (layer1): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer2): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer3): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (4): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (5): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (layer4): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (downsample): Sequential(
+          (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+      )
+    )
+  )
+  (classifier): Linear(in_features=2048, out_features=35, bias=True)
+)
+2020-04-05_23:59:44, Step 20/357 in Ep 1, 0.40s, loss:26.8891
+2020-04-05_23:59:52, Step 40/357 in Ep 1, 0.40s, loss:23.5373
+2020-04-06_00:00:00, Step 60/357 in Ep 1, 0.40s, loss:22.8924
+2020-04-06_00:00:08, Step 80/357 in Ep 1, 0.42s, loss:20.6433
+2020-04-06_00:00:17, Step 100/357 in Ep 1, 0.39s, loss:18.9977
+2020-04-06_00:00:25, Step 120/357 in Ep 1, 0.41s, loss:19.0494
+2020-04-06_00:00:33, Step 140/357 in Ep 1, 0.40s, loss:20.9877
+2020-04-06_00:00:41, Step 160/357 in Ep 1, 0.44s, loss:18.9084
+2020-04-06_00:00:49, Step 180/357 in Ep 1, 0.41s, loss:21.6332
+2020-04-06_00:00:57, Step 200/357 in Ep 1, 0.43s, loss:19.0537
+2020-04-06_00:01:06, Step 220/357 in Ep 1, 0.40s, loss:18.7133
+2020-04-06_00:01:14, Step 240/357 in Ep 1, 0.44s, loss:17.1107
+2020-04-06_00:01:22, Step 260/357 in Ep 1, 0.39s, loss:19.2315
+2020-04-06_00:01:30, Step 280/357 in Ep 1, 0.39s, loss:17.2806
+2020-04-06_00:01:38, Step 300/357 in Ep 1, 0.43s, loss:18.4908
+2020-04-06_00:01:47, Step 320/357 in Ep 1, 0.45s, loss:16.7736
+2020-04-06_00:01:55, Step 340/357 in Ep 1, 0.41s, loss:15.2028
+2020-04-06_00:02:02, Step 357/357 in Ep 1, 0.13s, loss:17.7873
+Ep1, 150.22s, loss 19.8277
+2020-04-06_00:02:13, Step 20/357 in Ep 2, 0.41s, loss:14.2888
+2020-04-06_00:02:21, Step 40/357 in Ep 2, 0.39s, loss:16.2110
+2020-04-06_00:02:29, Step 60/357 in Ep 2, 0.40s, loss:14.9490
+2020-04-06_00:02:37, Step 80/357 in Ep 2, 0.40s, loss:12.7640
+2020-04-06_00:02:45, Step 100/357 in Ep 2, 0.39s, loss:14.5901
+2020-04-06_00:02:54, Step 120/357 in Ep 2, 0.44s, loss:13.3730
+2020-04-06_00:03:02, Step 140/357 in Ep 2, 0.40s, loss:15.1946
+2020-04-06_00:03:10, Step 160/357 in Ep 2, 0.39s, loss:14.0397
+2020-04-06_00:03:18, Step 180/357 in Ep 2, 0.44s, loss:12.7331
+2020-04-06_00:03:26, Step 200/357 in Ep 2, 0.39s, loss:15.4036
+2020-04-06_00:03:35, Step 220/357 in Ep 2, 0.40s, loss:16.2009
+2020-04-06_00:03:43, Step 240/357 in Ep 2, 0.39s, loss:14.7572
+2020-04-06_00:03:51, Step 260/357 in Ep 2, 0.46s, loss:12.2039
+2020-04-06_00:03:59, Step 280/357 in Ep 2, 0.40s, loss:12.3974
+2020-04-06_00:04:07, Step 300/357 in Ep 2, 0.38s, loss:12.3680
+2020-04-06_00:04:16, Step 320/357 in Ep 2, 0.43s, loss:13.9951
+2020-04-06_00:04:24, Step 340/357 in Ep 2, 0.38s, loss:13.4692
+2020-04-06_00:04:31, Step 357/357 in Ep 2, 0.12s, loss:15.8552
+Ep2, 148.77s, loss 14.3693
+2020-04-06_00:04:42, Step 20/357 in Ep 3, 0.40s, loss:11.1477
+2020-04-06_00:04:50, Step 40/357 in Ep 3, 0.40s, loss:14.5856
+2020-04-06_00:04:58, Step 60/357 in Ep 3, 0.44s, loss:12.0447
+2020-04-06_00:05:07, Step 80/357 in Ep 3, 0.38s, loss:12.7157
+2020-04-06_00:05:15, Step 100/357 in Ep 3, 0.41s, loss:9.2785
+2020-04-06_00:05:23, Step 120/357 in Ep 3, 0.42s, loss:11.2624
+2020-04-06_00:05:32, Step 140/357 in Ep 3, 0.42s, loss:11.2047
+2020-04-06_00:05:40, Step 160/357 in Ep 3, 0.40s, loss:11.1010
+2020-04-06_00:05:48, Step 180/357 in Ep 3, 0.41s, loss:10.8115
+2020-04-06_00:05:57, Step 200/357 in Ep 3, 0.42s, loss:11.5121
+2020-04-06_00:06:05, Step 220/357 in Ep 3, 0.43s, loss:10.7659
+2020-04-06_00:06:14, Step 240/357 in Ep 3, 0.44s, loss:13.2855
+2020-04-06_00:06:22, Step 260/357 in Ep 3, 0.41s, loss:12.4609
+2020-04-06_00:06:30, Step 280/357 in Ep 3, 0.40s, loss:11.1700
+2020-04-06_00:06:39, Step 300/357 in Ep 3, 0.40s, loss:11.1056
+2020-04-06_00:06:47, Step 320/357 in Ep 3, 0.42s, loss:14.3202
+2020-04-06_00:06:55, Step 340/357 in Ep 3, 0.40s, loss:11.4243
+2020-04-06_00:07:02, Step 357/357 in Ep 3, 0.13s, loss:13.5525
+Ep3, 151.53s, loss 11.9077
+2020-04-06_00:07:13, Step 20/357 in Ep 4, 0.40s, loss:9.9498
+2020-04-06_00:07:21, Step 40/357 in Ep 4, 0.41s, loss:11.9233
+2020-04-06_00:07:29, Step 60/357 in Ep 4, 0.40s, loss:13.1555
+2020-04-06_00:07:38, Step 80/357 in Ep 4, 0.44s, loss:11.8462
+2020-04-06_00:07:46, Step 100/357 in Ep 4, 0.42s, loss:9.7308
+2020-04-06_00:07:54, Step 120/357 in Ep 4, 0.40s, loss:9.6650
+2020-04-06_00:08:02, Step 140/357 in Ep 4, 0.40s, loss:10.1819
+2020-04-06_00:08:10, Step 160/357 in Ep 4, 0.40s, loss:8.3523
+2020-04-06_00:08:18, Step 180/357 in Ep 4, 0.40s, loss:10.2519
+2020-04-06_00:08:26, Step 200/357 in Ep 4, 0.40s, loss:7.4183
+2020-04-06_00:08:35, Step 220/357 in Ep 4, 0.40s, loss:8.7424
+2020-04-06_00:08:43, Step 240/357 in Ep 4, 0.40s, loss:12.0210
+2020-04-06_00:08:51, Step 260/357 in Ep 4, 0.40s, loss:14.5674
+2020-04-06_00:08:59, Step 280/357 in Ep 4, 0.40s, loss:12.2644
+2020-04-06_00:09:07, Step 300/357 in Ep 4, 0.40s, loss:10.3592
+2020-04-06_00:09:15, Step 320/357 in Ep 4, 0.40s, loss:10.7397
+2020-04-06_00:09:24, Step 340/357 in Ep 4, 0.40s, loss:10.7894
+2020-04-06_00:09:30, Step 357/357 in Ep 4, 0.13s, loss:11.6665
+Ep4, 148.19s, loss 10.2009
+2020-04-06_00:09:41, Step 20/357 in Ep 5, 0.40s, loss:8.2226
+2020-04-06_00:09:50, Step 40/357 in Ep 5, 0.43s, loss:7.0641
+2020-04-06_00:09:58, Step 60/357 in Ep 5, 0.42s, loss:7.8861
+2020-04-06_00:10:06, Step 80/357 in Ep 5, 0.40s, loss:8.3166
+2020-04-06_00:10:15, Step 100/357 in Ep 5, 0.44s, loss:8.6258
+2020-04-06_00:10:23, Step 120/357 in Ep 5, 0.40s, loss:7.5293
+2020-04-06_00:10:32, Step 140/357 in Ep 5, 0.43s, loss:9.2897
+2020-04-06_00:10:40, Step 160/357 in Ep 5, 0.44s, loss:9.4935
+2020-04-06_00:10:49, Step 180/357 in Ep 5, 0.44s, loss:7.2993
+2020-04-06_00:10:57, Step 200/357 in Ep 5, 0.41s, loss:9.3042
+2020-04-06_00:11:05, Step 220/357 in Ep 5, 0.41s, loss:7.6390
+2020-04-06_00:11:14, Step 240/357 in Ep 5, 0.43s, loss:8.8864
+2020-04-06_00:11:22, Step 260/357 in Ep 5, 0.41s, loss:7.6406
+2020-04-06_00:11:31, Step 280/357 in Ep 5, 0.44s, loss:10.6794
+2020-04-06_00:11:39, Step 300/357 in Ep 5, 0.41s, loss:8.6739
+2020-04-06_00:11:47, Step 320/357 in Ep 5, 0.42s, loss:8.1991
+2020-04-06_00:11:56, Step 340/357 in Ep 5, 0.44s, loss:6.3095
+2020-04-06_00:12:02, Step 357/357 in Ep 5, 0.13s, loss:8.3890
+Ep5, 151.98s, loss 8.9355
+2020-04-06_00:12:14, Step 20/357 in Ep 6, 0.43s, loss:6.9418
+2020-04-06_00:12:22, Step 40/357 in Ep 6, 0.42s, loss:6.3430
+2020-04-06_00:12:30, Step 60/357 in Ep 6, 0.40s, loss:6.6328
+2020-04-06_00:12:39, Step 80/357 in Ep 6, 0.40s, loss:6.2789
+2020-04-06_00:12:47, Step 100/357 in Ep 6, 0.45s, loss:8.2581
+2020-04-06_00:12:56, Step 120/357 in Ep 6, 0.41s, loss:6.9728
+2020-04-06_00:13:04, Step 140/357 in Ep 6, 0.41s, loss:8.3541
+2020-04-06_00:13:12, Step 160/357 in Ep 6, 0.42s, loss:8.3109
+2020-04-06_00:13:21, Step 180/357 in Ep 6, 0.43s, loss:5.7018
+2020-04-06_00:13:29, Step 200/357 in Ep 6, 0.43s, loss:8.0135
+2020-04-06_00:13:38, Step 220/357 in Ep 6, 0.43s, loss:8.5400
+2020-04-06_00:13:46, Step 240/357 in Ep 6, 0.41s, loss:7.5230
+2020-04-06_00:13:54, Step 260/357 in Ep 6, 0.41s, loss:8.1989
+2020-04-06_00:14:03, Step 280/357 in Ep 6, 0.42s, loss:7.8297
+2020-04-06_00:14:11, Step 300/357 in Ep 6, 0.42s, loss:7.5853
+2020-04-06_00:14:20, Step 320/357 in Ep 6, 0.41s, loss:5.9329
+2020-04-06_00:14:28, Step 340/357 in Ep 6, 0.44s, loss:9.3621
+2020-04-06_00:14:35, Step 357/357 in Ep 6, 0.14s, loss:13.0456
+Ep6, 152.68s, loss 7.7430
+2020-04-06_00:14:46, Step 20/357 in Ep 7, 0.40s, loss:6.7359
+2020-04-06_00:14:54, Step 40/357 in Ep 7, 0.40s, loss:4.9553
+2020-04-06_00:15:02, Step 60/357 in Ep 7, 0.40s, loss:7.1700
+2020-04-06_00:15:10, Step 80/357 in Ep 7, 0.40s, loss:5.5997
+2020-04-06_00:15:19, Step 100/357 in Ep 7, 0.45s, loss:6.2655
+2020-04-06_00:15:27, Step 120/357 in Ep 7, 0.40s, loss:7.1394
+2020-04-06_00:15:35, Step 140/357 in Ep 7, 0.40s, loss:6.9917
+2020-04-06_00:15:43, Step 160/357 in Ep 7, 0.40s, loss:6.6609
+2020-04-06_00:15:51, Step 180/357 in Ep 7, 0.41s, loss:7.5370
+2020-04-06_00:16:00, Step 200/357 in Ep 7, 0.40s, loss:7.2131
+2020-04-06_00:16:08, Step 220/357 in Ep 7, 0.40s, loss:7.8708
+2020-04-06_00:16:16, Step 240/357 in Ep 7, 0.40s, loss:5.0863
+2020-04-06_00:16:24, Step 260/357 in Ep 7, 0.40s, loss:8.4528
+2020-04-06_00:16:32, Step 280/357 in Ep 7, 0.40s, loss:5.8333
+2020-04-06_00:16:40, Step 300/357 in Ep 7, 0.41s, loss:5.9425
+2020-04-06_00:16:48, Step 320/357 in Ep 7, 0.42s, loss:7.1438
+2020-04-06_00:16:57, Step 340/357 in Ep 7, 0.40s, loss:7.6105
+2020-04-06_00:17:03, Step 357/357 in Ep 7, 0.14s, loss:9.6756
+Ep7, 148.23s, loss 6.9680
+2020-04-06_00:17:14, Step 20/357 in Ep 8, 0.41s, loss:5.3592
+2020-04-06_00:17:23, Step 40/357 in Ep 8, 0.42s, loss:3.9533
+2020-04-06_00:17:31, Step 60/357 in Ep 8, 0.42s, loss:6.6279
+2020-04-06_00:17:40, Step 80/357 in Ep 8, 0.40s, loss:8.4869
+2020-04-06_00:17:48, Step 100/357 in Ep 8, 0.40s, loss:4.7799
+2020-04-06_00:17:57, Step 120/357 in Ep 8, 0.41s, loss:5.4820
+2020-04-06_00:18:05, Step 140/357 in Ep 8, 0.43s, loss:5.9959
+2020-04-06_00:18:14, Step 160/357 in Ep 8, 0.44s, loss:7.8148
+2020-04-06_00:18:22, Step 180/357 in Ep 8, 0.39s, loss:5.7502
+2020-04-06_00:18:30, Step 200/357 in Ep 8, 0.43s, loss:4.5003
+2020-04-06_00:18:38, Step 220/357 in Ep 8, 0.44s, loss:4.8694
+2020-04-06_00:18:46, Step 240/357 in Ep 8, 0.40s, loss:5.5158
+2020-04-06_00:18:55, Step 260/357 in Ep 8, 0.43s, loss:4.7787
+2020-04-06_00:19:03, Step 280/357 in Ep 8, 0.43s, loss:8.1457
+2020-04-06_00:19:12, Step 300/357 in Ep 8, 0.42s, loss:6.4685
+2020-04-06_00:19:20, Step 320/357 in Ep 8, 0.43s, loss:6.4975
+2020-04-06_00:19:28, Step 340/357 in Ep 8, 0.43s, loss:4.5062
+2020-04-06_00:19:35, Step 357/357 in Ep 8, 0.12s, loss:18.2279
+Ep8, 151.93s, loss 5.9740
+2020-04-06_00:19:46, Step 20/357 in Ep 9, 0.40s, loss:4.7532
+2020-04-06_00:19:55, Step 40/357 in Ep 9, 0.41s, loss:4.9088
+2020-04-06_00:20:03, Step 60/357 in Ep 9, 0.39s, loss:4.5950
+2020-04-06_00:20:11, Step 80/357 in Ep 9, 0.40s, loss:5.6229
+2020-04-06_00:20:20, Step 100/357 in Ep 9, 0.41s, loss:6.9842
+2020-04-06_00:20:28, Step 120/357 in Ep 9, 0.40s, loss:4.5657
+2020-04-06_00:20:36, Step 140/357 in Ep 9, 0.41s, loss:5.2932
+2020-04-06_00:20:44, Step 160/357 in Ep 9, 0.43s, loss:5.2955
+2020-04-06_00:20:53, Step 180/357 in Ep 9, 0.44s, loss:6.0034
+2020-04-06_00:21:01, Step 200/357 in Ep 9, 0.42s, loss:6.8254
+2020-04-06_00:21:09, Step 220/357 in Ep 9, 0.43s, loss:3.9854
+2020-04-06_00:21:17, Step 240/357 in Ep 9, 0.43s, loss:5.6012
+2020-04-06_00:21:25, Step 260/357 in Ep 9, 0.43s, loss:6.2481
+2020-04-06_00:21:34, Step 280/357 in Ep 9, 0.43s, loss:5.8031
+2020-04-06_00:21:42, Step 300/357 in Ep 9, 0.44s, loss:6.1016
+2020-04-06_00:21:50, Step 320/357 in Ep 9, 0.39s, loss:5.1702
+2020-04-06_00:21:58, Step 340/357 in Ep 9, 0.42s, loss:5.0453
+2020-04-06_00:22:05, Step 357/357 in Ep 9, 0.13s, loss:6.9689
+Ep9, 149.68s, loss 5.3856
+2020-04-06_00:22:15, Step 20/357 in Ep 10, 0.38s, loss:5.3642
+2020-04-06_00:22:23, Step 40/357 in Ep 10, 0.39s, loss:4.6209
+2020-04-06_00:22:31, Step 60/357 in Ep 10, 0.38s, loss:2.4738
+2020-04-06_00:22:39, Step 80/357 in Ep 10, 0.39s, loss:3.7519
+2020-04-06_00:22:47, Step 100/357 in Ep 10, 0.39s, loss:4.6500
+2020-04-06_00:22:54, Step 120/357 in Ep 10, 0.39s, loss:5.8184
+2020-04-06_00:23:02, Step 140/357 in Ep 10, 0.39s, loss:2.6352
+2020-04-06_00:23:10, Step 160/357 in Ep 10, 0.39s, loss:3.0457
+2020-04-06_00:23:18, Step 180/357 in Ep 10, 0.38s, loss:4.7944
+2020-04-06_00:23:26, Step 200/357 in Ep 10, 0.39s, loss:4.0836
+2020-04-06_00:23:34, Step 220/357 in Ep 10, 0.39s, loss:5.0583
+2020-04-06_00:23:42, Step 240/357 in Ep 10, 0.39s, loss:6.8546
+2020-04-06_00:23:49, Step 260/357 in Ep 10, 0.39s, loss:4.1576
+2020-04-06_00:23:57, Step 280/357 in Ep 10, 0.39s, loss:4.4217
+2020-04-06_00:24:05, Step 300/357 in Ep 10, 0.39s, loss:4.5254
+2020-04-06_00:24:13, Step 320/357 in Ep 10, 0.39s, loss:5.9692
+2020-04-06_00:24:21, Step 340/357 in Ep 10, 0.38s, loss:4.7544
+2020-04-06_00:24:27, Step 357/357 in Ep 10, 0.13s, loss:3.5683
+Ep10, 142.42s, loss 4.5369
+att test with feat_func_att
+extracting features for attribute recognition
+238 batches done, total 20.33s
+computing attribute recognition result
+------------------------------------------------------------
+Evaluation on test set:
+Label-based evaluation:
+ mA: 0.8299
+Instance-based evaluation:
+ Acc: 0.7427, Prec: 0.8295, Rec: 0.8333, F1: 0.8314
+------------------------------------------------------------
+2020-04-06_00:24:59, Step 20/357 in Ep 11, 0.45s, loss:4.0153
+2020-04-06_00:25:07, Step 40/357 in Ep 11, 0.40s, loss:3.3792
+2020-04-06_00:25:15, Step 60/357 in Ep 11, 0.42s, loss:4.0923
+2020-04-06_00:25:23, Step 80/357 in Ep 11, 0.42s, loss:4.3489
+2020-04-06_00:25:31, Step 100/357 in Ep 11, 0.39s, loss:3.2393
+2020-04-06_00:25:40, Step 120/357 in Ep 11, 0.41s, loss:2.5912
+2020-04-06_00:25:48, Step 140/357 in Ep 11, 0.43s, loss:3.2767
+2020-04-06_00:25:56, Step 160/357 in Ep 11, 0.40s, loss:3.6727
+2020-04-06_00:26:05, Step 180/357 in Ep 11, 0.45s, loss:2.9854
+2020-04-06_00:26:13, Step 200/357 in Ep 11, 0.39s, loss:3.6229
+2020-04-06_00:26:21, Step 220/357 in Ep 11, 0.40s, loss:4.4477
+2020-04-06_00:26:29, Step 240/357 in Ep 11, 0.43s, loss:5.3047
+2020-04-06_00:26:38, Step 260/357 in Ep 11, 0.40s, loss:4.2540
+2020-04-06_00:26:46, Step 280/357 in Ep 11, 0.41s, loss:5.1603
+2020-04-06_00:26:54, Step 300/357 in Ep 11, 0.40s, loss:4.8381
+2020-04-06_00:27:03, Step 320/357 in Ep 11, 0.43s, loss:4.2862
+2020-04-06_00:27:11, Step 340/357 in Ep 11, 0.41s, loss:4.5613
+2020-04-06_00:27:18, Step 357/357 in Ep 11, 0.13s, loss:4.7300
+Ep11, 149.88s, loss 3.9964
+2020-04-06_00:27:28, Step 20/357 in Ep 12, 0.44s, loss:4.0368
+2020-04-06_00:27:36, Step 40/357 in Ep 12, 0.44s, loss:4.2278
+2020-04-06_00:27:44, Step 60/357 in Ep 12, 0.39s, loss:3.5183
+2020-04-06_00:27:52, Step 80/357 in Ep 12, 0.39s, loss:3.2957
+2020-04-06_00:28:00, Step 100/357 in Ep 12, 0.39s, loss:5.2975
+2020-04-06_00:28:08, Step 120/357 in Ep 12, 0.39s, loss:4.0332
+2020-04-06_00:28:16, Step 140/357 in Ep 12, 0.44s, loss:3.1374
+2020-04-06_00:28:24, Step 160/357 in Ep 12, 0.39s, loss:2.9975
+2020-04-06_00:28:32, Step 180/357 in Ep 12, 0.39s, loss:2.9616
+2020-04-06_00:28:40, Step 200/357 in Ep 12, 0.39s, loss:2.2498
+2020-04-06_00:28:48, Step 220/357 in Ep 12, 0.39s, loss:2.7731
+2020-04-06_00:28:56, Step 240/357 in Ep 12, 0.39s, loss:2.5663
+2020-04-06_00:29:04, Step 260/357 in Ep 12, 0.39s, loss:2.5882
+2020-04-06_00:29:12, Step 280/357 in Ep 12, 0.39s, loss:2.5534
+2020-04-06_00:29:20, Step 300/357 in Ep 12, 0.39s, loss:4.4178
+2020-04-06_00:29:28, Step 320/357 in Ep 12, 0.40s, loss:3.9049
+2020-04-06_00:29:36, Step 340/357 in Ep 12, 0.44s, loss:4.9232
+2020-04-06_00:29:42, Step 357/357 in Ep 12, 0.13s, loss:5.5349
+Ep12, 144.77s, loss 3.5247
+2020-04-06_00:29:53, Step 20/357 in Ep 13, 0.43s, loss:2.5198
+2020-04-06_00:30:02, Step 40/357 in Ep 13, 0.42s, loss:2.0618
+2020-04-06_00:30:10, Step 60/357 in Ep 13, 0.40s, loss:2.6764
+2020-04-06_00:30:18, Step 80/357 in Ep 13, 0.44s, loss:5.2551
+2020-04-06_00:30:26, Step 100/357 in Ep 13, 0.40s, loss:1.9148
+2020-04-06_00:30:35, Step 120/357 in Ep 13, 0.40s, loss:4.5737
+2020-04-06_00:30:43, Step 140/357 in Ep 13, 0.41s, loss:2.6790
+2020-04-06_00:30:51, Step 160/357 in Ep 13, 0.44s, loss:2.3254
+2020-04-06_00:30:59, Step 180/357 in Ep 13, 0.40s, loss:3.8389
+2020-04-06_00:31:08, Step 200/357 in Ep 13, 0.42s, loss:3.7189
+2020-04-06_00:31:16, Step 220/357 in Ep 13, 0.40s, loss:2.4908
+2020-04-06_00:31:24, Step 240/357 in Ep 13, 0.43s, loss:2.5348
+2020-04-06_00:31:33, Step 260/357 in Ep 13, 0.43s, loss:2.3114
+2020-04-06_00:31:41, Step 280/357 in Ep 13, 0.39s, loss:2.7345
+2020-04-06_00:31:49, Step 300/357 in Ep 13, 0.45s, loss:3.8572
+2020-04-06_00:31:58, Step 320/357 in Ep 13, 0.41s, loss:2.5339
+2020-04-06_00:32:06, Step 340/357 in Ep 13, 0.42s, loss:3.9100
+2020-04-06_00:32:13, Step 357/357 in Ep 13, 0.13s, loss:7.9671
+Ep13, 150.44s, loss 3.2007
+2020-04-06_00:32:24, Step 20/357 in Ep 14, 0.43s, loss:4.1331
+2020-04-06_00:32:32, Step 40/357 in Ep 14, 0.41s, loss:3.7569
+2020-04-06_00:32:40, Step 60/357 in Ep 14, 0.40s, loss:3.1390
+2020-04-06_00:32:49, Step 80/357 in Ep 14, 0.40s, loss:2.6010
+2020-04-06_00:32:57, Step 100/357 in Ep 14, 0.40s, loss:2.4795
+2020-04-06_00:33:05, Step 120/357 in Ep 14, 0.44s, loss:2.3685
+2020-04-06_00:33:14, Step 140/357 in Ep 14, 0.42s, loss:1.9603
+2020-04-06_00:33:22, Step 160/357 in Ep 14, 0.41s, loss:2.2697
+2020-04-06_00:33:30, Step 180/357 in Ep 14, 0.40s, loss:2.2481
+2020-04-06_00:33:38, Step 200/357 in Ep 14, 0.39s, loss:2.3705
+2020-04-06_00:33:47, Step 220/357 in Ep 14, 0.43s, loss:2.6936
+2020-04-06_00:33:55, Step 240/357 in Ep 14, 0.40s, loss:2.4898
+2020-04-06_00:34:03, Step 260/357 in Ep 14, 0.40s, loss:3.5681
+2020-04-06_00:34:11, Step 280/357 in Ep 14, 0.44s, loss:3.6875
+2020-04-06_00:34:20, Step 300/357 in Ep 14, 0.39s, loss:3.4312
+2020-04-06_00:34:28, Step 320/357 in Ep 14, 0.39s, loss:3.0219
+2020-04-06_00:34:37, Step 340/357 in Ep 14, 0.44s, loss:1.9224
+2020-04-06_00:34:43, Step 357/357 in Ep 14, 0.13s, loss:5.2946
+Ep14, 150.36s, loss 2.8186
+2020-04-06_00:34:54, Step 20/357 in Ep 15, 0.42s, loss:2.6467
+2020-04-06_00:35:02, Step 40/357 in Ep 15, 0.39s, loss:2.4020
+2020-04-06_00:35:10, Step 60/357 in Ep 15, 0.43s, loss:3.1282
+2020-04-06_00:35:18, Step 80/357 in Ep 15, 0.39s, loss:2.9252
+2020-04-06_00:35:26, Step 100/357 in Ep 15, 0.39s, loss:2.6189
+2020-04-06_00:35:34, Step 120/357 in Ep 15, 0.39s, loss:2.7891
+2020-04-06_00:35:42, Step 140/357 in Ep 15, 0.39s, loss:2.9497
+2020-04-06_00:35:50, Step 160/357 in Ep 15, 0.40s, loss:5.1950
+2020-04-06_00:35:58, Step 180/357 in Ep 15, 0.39s, loss:1.9271
+2020-04-06_00:36:06, Step 200/357 in Ep 15, 0.40s, loss:1.9536
+2020-04-06_00:36:14, Step 220/357 in Ep 15, 0.39s, loss:3.3601
+2020-04-06_00:36:22, Step 240/357 in Ep 15, 0.39s, loss:2.6713
+2020-04-06_00:36:29, Step 260/357 in Ep 15, 0.39s, loss:2.4684
+2020-04-06_00:36:37, Step 280/357 in Ep 15, 0.39s, loss:2.2278
+2020-04-06_00:36:45, Step 300/357 in Ep 15, 0.44s, loss:1.8027
+2020-04-06_00:36:53, Step 320/357 in Ep 15, 0.43s, loss:2.6980
+2020-04-06_00:37:01, Step 340/357 in Ep 15, 0.39s, loss:3.4407
+2020-04-06_00:37:08, Step 357/357 in Ep 15, 0.15s, loss:2.6157
+Ep15, 144.85s, loss 2.5922
+2020-04-06_00:37:19, Step 20/357 in Ep 16, 0.41s, loss:2.2887
+2020-04-06_00:37:27, Step 40/357 in Ep 16, 0.43s, loss:2.3672
+2020-04-06_00:37:36, Step 60/357 in Ep 16, 0.43s, loss:2.7810
+2020-04-06_00:37:44, Step 80/357 in Ep 16, 0.39s, loss:1.3934
+2020-04-06_00:37:53, Step 100/357 in Ep 16, 0.43s, loss:2.7679
+2020-04-06_00:38:01, Step 120/357 in Ep 16, 0.45s, loss:2.2320
+2020-04-06_00:38:09, Step 140/357 in Ep 16, 0.43s, loss:1.7128
+2020-04-06_00:38:18, Step 160/357 in Ep 16, 0.43s, loss:1.4284
+2020-04-06_00:38:26, Step 180/357 in Ep 16, 0.39s, loss:1.7119
+2020-04-06_00:38:34, Step 200/357 in Ep 16, 0.43s, loss:2.4406
+2020-04-06_00:38:43, Step 220/357 in Ep 16, 0.43s, loss:1.7780
+2020-04-06_00:38:51, Step 240/357 in Ep 16, 0.38s, loss:1.9579
+2020-04-06_00:39:00, Step 260/357 in Ep 16, 0.43s, loss:1.8338
+2020-04-06_00:39:08, Step 280/357 in Ep 16, 0.41s, loss:4.0909
+2020-04-06_00:39:17, Step 300/357 in Ep 16, 0.43s, loss:2.0038
+2020-04-06_00:39:25, Step 320/357 in Ep 16, 0.43s, loss:2.4386
+2020-04-06_00:39:34, Step 340/357 in Ep 16, 0.38s, loss:2.8860
+2020-04-06_00:39:41, Step 357/357 in Ep 16, 0.12s, loss:5.3297
+Ep16, 152.75s, loss 2.2023
+2020-04-06_00:39:52, Step 20/357 in Ep 17, 0.38s, loss:1.9127
+2020-04-06_00:40:00, Step 40/357 in Ep 17, 0.39s, loss:2.4935
+2020-04-06_00:40:08, Step 60/357 in Ep 17, 0.42s, loss:2.3963
+2020-04-06_00:40:16, Step 80/357 in Ep 17, 0.43s, loss:1.2725
+2020-04-06_00:40:25, Step 100/357 in Ep 17, 0.43s, loss:1.3699
+2020-04-06_00:40:33, Step 120/357 in Ep 17, 0.43s, loss:2.0790
+2020-04-06_00:40:42, Step 140/357 in Ep 17, 0.38s, loss:1.3248
+2020-04-06_00:40:50, Step 160/357 in Ep 17, 0.43s, loss:1.6050
+2020-04-06_00:40:58, Step 180/357 in Ep 17, 0.42s, loss:2.1780
+2020-04-06_00:41:07, Step 200/357 in Ep 17, 0.43s, loss:2.0367
+2020-04-06_00:41:15, Step 220/357 in Ep 17, 0.43s, loss:2.1804
+2020-04-06_00:41:24, Step 240/357 in Ep 17, 0.43s, loss:1.7853
+2020-04-06_00:41:32, Step 260/357 in Ep 17, 0.39s, loss:1.8798
+2020-04-06_00:41:40, Step 280/357 in Ep 17, 0.39s, loss:1.9489
+2020-04-06_00:41:49, Step 300/357 in Ep 17, 0.39s, loss:1.2884
+2020-04-06_00:41:57, Step 320/357 in Ep 17, 0.44s, loss:2.3596
+2020-04-06_00:42:05, Step 340/357 in Ep 17, 0.39s, loss:1.9672
+2020-04-06_00:42:12, Step 357/357 in Ep 17, 0.13s, loss:5.1053
+Ep17, 150.94s, loss 1.9443
+2020-04-06_00:42:22, Step 20/357 in Ep 18, 0.39s, loss:3.0473
+2020-04-06_00:42:30, Step 40/357 in Ep 18, 0.41s, loss:2.4962
+2020-04-06_00:42:38, Step 60/357 in Ep 18, 0.38s, loss:2.6386
+2020-04-06_00:42:46, Step 80/357 in Ep 18, 0.39s, loss:2.9520
+2020-04-06_00:42:54, Step 100/357 in Ep 18, 0.39s, loss:1.7772
+2020-04-06_00:43:02, Step 120/357 in Ep 18, 0.39s, loss:1.6951
+2020-04-06_00:43:10, Step 140/357 in Ep 18, 0.39s, loss:2.0989
+2020-04-06_00:43:17, Step 160/357 in Ep 18, 0.41s, loss:3.7120
+2020-04-06_00:43:25, Step 180/357 in Ep 18, 0.38s, loss:1.5624
+2020-04-06_00:43:33, Step 200/357 in Ep 18, 0.38s, loss:1.7918
+2020-04-06_00:43:41, Step 220/357 in Ep 18, 0.39s, loss:1.2348
+2020-04-06_00:43:49, Step 240/357 in Ep 18, 0.39s, loss:1.4250
+2020-04-06_00:43:57, Step 260/357 in Ep 18, 0.39s, loss:1.8193
+2020-04-06_00:44:04, Step 280/357 in Ep 18, 0.41s, loss:2.0789
+2020-04-06_00:44:12, Step 300/357 in Ep 18, 0.39s, loss:1.8994
+2020-04-06_00:44:20, Step 320/357 in Ep 18, 0.39s, loss:1.7113
+2020-04-06_00:44:28, Step 340/357 in Ep 18, 0.40s, loss:1.4858
+2020-04-06_00:44:34, Step 357/357 in Ep 18, 0.13s, loss:3.3370
+Ep18, 142.79s, loss 1.8077
+2020-04-06_00:44:45, Step 20/357 in Ep 19, 0.38s, loss:1.8601
+2020-04-06_00:44:54, Step 40/357 in Ep 19, 0.41s, loss:1.7057
+2020-04-06_00:45:02, Step 60/357 in Ep 19, 0.44s, loss:1.6049
+2020-04-06_00:45:10, Step 80/357 in Ep 19, 0.42s, loss:0.7184
+2020-04-06_00:45:18, Step 100/357 in Ep 19, 0.44s, loss:1.1017
+2020-04-06_00:45:26, Step 120/357 in Ep 19, 0.39s, loss:1.5108
+2020-04-06_00:45:35, Step 140/357 in Ep 19, 0.44s, loss:2.0897
+2020-04-06_00:45:43, Step 160/357 in Ep 19, 0.41s, loss:1.3825
+2020-04-06_00:45:51, Step 180/357 in Ep 19, 0.44s, loss:2.0186
+2020-04-06_00:45:59, Step 200/357 in Ep 19, 0.39s, loss:1.3458
+2020-04-06_00:46:08, Step 220/357 in Ep 19, 0.39s, loss:1.4651
+2020-04-06_00:46:16, Step 240/357 in Ep 19, 0.39s, loss:1.4406
+2020-04-06_00:46:24, Step 260/357 in Ep 19, 0.40s, loss:1.5020
+2020-04-06_00:46:32, Step 280/357 in Ep 19, 0.43s, loss:1.2687
+2020-04-06_00:46:41, Step 300/357 in Ep 19, 0.44s, loss:1.1956
+2020-04-06_00:46:49, Step 320/357 in Ep 19, 0.39s, loss:2.3925
+2020-04-06_00:46:57, Step 340/357 in Ep 19, 0.44s, loss:1.5772
+2020-04-06_00:47:04, Step 357/357 in Ep 19, 0.13s, loss:2.5581
+Ep19, 149.44s, loss 1.5770
+2020-04-06_00:47:15, Step 20/357 in Ep 20, 0.40s, loss:1.7114
+2020-04-06_00:47:23, Step 40/357 in Ep 20, 0.42s, loss:1.3336
+2020-04-06_00:47:31, Step 60/357 in Ep 20, 0.41s, loss:0.8057
+2020-04-06_00:47:40, Step 80/357 in Ep 20, 0.41s, loss:1.0804
+2020-04-06_00:47:48, Step 100/357 in Ep 20, 0.42s, loss:1.2068
+2020-04-06_00:47:56, Step 120/357 in Ep 20, 0.42s, loss:0.7311
+2020-04-06_00:48:05, Step 140/357 in Ep 20, 0.39s, loss:1.6372
+2020-04-06_00:48:13, Step 160/357 in Ep 20, 0.39s, loss:2.1349
+2020-04-06_00:48:21, Step 180/357 in Ep 20, 0.40s, loss:1.3167
+2020-04-06_00:48:29, Step 200/357 in Ep 20, 0.40s, loss:1.2617
+2020-04-06_00:48:38, Step 220/357 in Ep 20, 0.43s, loss:2.6775
+2020-04-06_00:48:46, Step 240/357 in Ep 20, 0.39s, loss:0.8171
+2020-04-06_00:48:54, Step 260/357 in Ep 20, 0.41s, loss:1.6540
+2020-04-06_00:49:02, Step 280/357 in Ep 20, 0.39s, loss:1.7311
+2020-04-06_00:49:10, Step 300/357 in Ep 20, 0.39s, loss:1.5968
+2020-04-06_00:49:19, Step 320/357 in Ep 20, 0.39s, loss:1.5320
+2020-04-06_00:49:27, Step 340/357 in Ep 20, 0.39s, loss:1.2366
+2020-04-06_00:49:34, Step 357/357 in Ep 20, 0.13s, loss:3.4227
+Ep20, 149.81s, loss 1.3308
+att test with feat_func_att
+extracting features for attribute recognition
+238 batches done, total 20.43s
+computing attribute recognition result
+------------------------------------------------------------
+Evaluation on test set:
+Label-based evaluation:
+ mA: 0.8296
+Instance-based evaluation:
+ Acc: 0.7672, Prec: 0.8593, Rec: 0.8402, F1: 0.8497
+------------------------------------------------------------
+2020-04-06_00:50:05, Step 20/357 in Ep 21, 0.39s, loss:1.5312
+2020-04-06_00:50:13, Step 40/357 in Ep 21, 0.39s, loss:1.0869
+2020-04-06_00:50:21, Step 60/357 in Ep 21, 0.39s, loss:0.9028
+2020-04-06_00:50:29, Step 80/357 in Ep 21, 0.39s, loss:1.0570
+2020-04-06_00:50:38, Step 100/357 in Ep 21, 0.43s, loss:0.9392
+2020-04-06_00:50:46, Step 120/357 in Ep 21, 0.41s, loss:1.3788
+2020-04-06_00:50:54, Step 140/357 in Ep 21, 0.42s, loss:0.8296
+2020-04-06_00:51:02, Step 160/357 in Ep 21, 0.40s, loss:1.7446
+2020-04-06_00:51:10, Step 180/357 in Ep 21, 0.41s, loss:1.5108
+2020-04-06_00:51:19, Step 200/357 in Ep 21, 0.39s, loss:0.7429
+2020-04-06_00:51:27, Step 220/357 in Ep 21, 0.44s, loss:0.6815
+2020-04-06_00:51:35, Step 240/357 in Ep 21, 0.43s, loss:0.9507
+2020-04-06_00:51:43, Step 260/357 in Ep 21, 0.39s, loss:1.2393
+2020-04-06_00:51:51, Step 280/357 in Ep 21, 0.44s, loss:1.2935
+2020-04-06_00:51:59, Step 300/357 in Ep 21, 0.39s, loss:0.7972
+2020-04-06_00:52:08, Step 320/357 in Ep 21, 0.40s, loss:0.6105
+2020-04-06_00:52:16, Step 340/357 in Ep 21, 0.44s, loss:0.9406
+2020-04-06_00:52:23, Step 357/357 in Ep 21, 0.13s, loss:2.2453
+Ep21, 148.49s, loss 1.2481
+2020-04-06_00:52:34, Step 20/357 in Ep 22, 0.43s, loss:1.2743
+2020-04-06_00:52:42, Step 40/357 in Ep 22, 0.41s, loss:0.7019
+2020-04-06_00:52:50, Step 60/357 in Ep 22, 0.40s, loss:1.3850
+2020-04-06_00:52:58, Step 80/357 in Ep 22, 0.42s, loss:0.6848
+2020-04-06_00:53:07, Step 100/357 in Ep 22, 0.40s, loss:0.4591
+2020-04-06_00:53:15, Step 120/357 in Ep 22, 0.43s, loss:0.6365
+2020-04-06_00:53:23, Step 140/357 in Ep 22, 0.43s, loss:0.8799
+2020-04-06_00:53:32, Step 160/357 in Ep 22, 0.43s, loss:1.1618
+2020-04-06_00:53:40, Step 180/357 in Ep 22, 0.40s, loss:1.6247
+2020-04-06_00:53:48, Step 200/357 in Ep 22, 0.38s, loss:0.8485
+2020-04-06_00:53:57, Step 220/357 in Ep 22, 0.43s, loss:1.0957
+2020-04-06_00:54:05, Step 240/357 in Ep 22, 0.43s, loss:1.6198
+2020-04-06_00:54:14, Step 260/357 in Ep 22, 0.43s, loss:0.7468
+2020-04-06_00:54:22, Step 280/357 in Ep 22, 0.43s, loss:0.7305
+2020-04-06_00:54:31, Step 300/357 in Ep 22, 0.43s, loss:0.7124
+2020-04-06_00:54:39, Step 320/357 in Ep 22, 0.43s, loss:1.2418
+2020-04-06_00:54:48, Step 340/357 in Ep 22, 0.43s, loss:0.8458
+2020-04-06_00:54:54, Step 357/357 in Ep 22, 0.12s, loss:2.1868
+Ep22, 151.66s, loss 1.0895
+2020-04-06_00:55:05, Step 20/357 in Ep 23, 0.42s, loss:1.6744
+2020-04-06_00:55:12, Step 40/357 in Ep 23, 0.42s, loss:1.0042
+2020-04-06_00:55:20, Step 60/357 in Ep 23, 0.40s, loss:1.6223
+2020-04-06_00:55:28, Step 80/357 in Ep 23, 0.42s, loss:0.8497
+2020-04-06_00:55:36, Step 100/357 in Ep 23, 0.38s, loss:0.5792
+2020-04-06_00:55:44, Step 120/357 in Ep 23, 0.42s, loss:0.9505
+2020-04-06_00:55:52, Step 140/357 in Ep 23, 0.45s, loss:0.9202
+2020-04-06_00:56:00, Step 160/357 in Ep 23, 0.42s, loss:0.5481
+2020-04-06_00:56:08, Step 180/357 in Ep 23, 0.40s, loss:0.5422
+2020-04-06_00:56:16, Step 200/357 in Ep 23, 0.38s, loss:0.5659
+2020-04-06_00:56:24, Step 220/357 in Ep 23, 0.38s, loss:1.1220
+2020-04-06_00:56:31, Step 240/357 in Ep 23, 0.44s, loss:1.0706
+2020-04-06_00:56:39, Step 260/357 in Ep 23, 0.41s, loss:1.4012
+2020-04-06_00:56:47, Step 280/357 in Ep 23, 0.38s, loss:1.0707
+2020-04-06_00:56:55, Step 300/357 in Ep 23, 0.39s, loss:1.4531
+2020-04-06_00:57:03, Step 320/357 in Ep 23, 0.40s, loss:0.5904
+2020-04-06_00:57:11, Step 340/357 in Ep 23, 0.39s, loss:0.8112
+2020-04-06_00:57:17, Step 357/357 in Ep 23, 0.14s, loss:2.1259
+Ep23, 142.50s, loss 1.0423
+2020-04-06_00:57:28, Step 20/357 in Ep 24, 0.44s, loss:0.6226
+2020-04-06_00:57:36, Step 40/357 in Ep 24, 0.43s, loss:1.1858
+2020-04-06_00:57:45, Step 60/357 in Ep 24, 0.40s, loss:1.3154
+2020-04-06_00:57:53, Step 80/357 in Ep 24, 0.45s, loss:1.5549
+2020-04-06_00:58:02, Step 100/357 in Ep 24, 0.43s, loss:1.2242
+2020-04-06_00:58:10, Step 120/357 in Ep 24, 0.40s, loss:1.5834
+2020-04-06_00:58:19, Step 140/357 in Ep 24, 0.44s, loss:0.9313
+2020-04-06_00:58:27, Step 160/357 in Ep 24, 0.41s, loss:1.5182
+2020-04-06_00:58:36, Step 180/357 in Ep 24, 0.45s, loss:0.7874
+2020-04-06_00:58:44, Step 200/357 in Ep 24, 0.40s, loss:0.6155
+2020-04-06_00:58:52, Step 220/357 in Ep 24, 0.44s, loss:0.5418
+2020-04-06_00:59:01, Step 240/357 in Ep 24, 0.44s, loss:0.7318
+2020-04-06_00:59:10, Step 260/357 in Ep 24, 0.43s, loss:1.6795
+2020-04-06_00:59:18, Step 280/357 in Ep 24, 0.43s, loss:0.7685
+2020-04-06_00:59:27, Step 300/357 in Ep 24, 0.43s, loss:0.8993
+2020-04-06_00:59:35, Step 320/357 in Ep 24, 0.38s, loss:0.8296
+2020-04-06_00:59:44, Step 340/357 in Ep 24, 0.43s, loss:1.4563
+2020-04-06_00:59:50, Step 357/357 in Ep 24, 0.12s, loss:7.2206
+Ep24, 153.50s, loss 1.0046
+2020-04-06_01:00:01, Step 20/357 in Ep 25, 0.43s, loss:1.8065
+2020-04-06_01:00:10, Step 40/357 in Ep 25, 0.38s, loss:0.7921
+2020-04-06_01:00:18, Step 60/357 in Ep 25, 0.43s, loss:0.8630
+2020-04-06_01:00:26, Step 80/357 in Ep 25, 0.37s, loss:1.4890
+2020-04-06_01:00:34, Step 100/357 in Ep 25, 0.40s, loss:0.9219
+2020-04-06_01:00:43, Step 120/357 in Ep 25, 0.45s, loss:0.9728
+2020-04-06_01:00:52, Step 140/357 in Ep 25, 0.45s, loss:0.9316
+2020-04-06_01:01:01, Step 160/357 in Ep 25, 0.45s, loss:0.6846
+2020-04-06_01:01:10, Step 180/357 in Ep 25, 0.45s, loss:0.3974
+2020-04-06_01:01:19, Step 200/357 in Ep 25, 0.45s, loss:0.9093
+2020-04-06_01:01:28, Step 220/357 in Ep 25, 0.45s, loss:0.7663
+2020-04-06_01:01:36, Step 240/357 in Ep 25, 0.45s, loss:0.7959
+2020-04-06_01:01:45, Step 260/357 in Ep 25, 0.45s, loss:1.0263
+2020-04-06_01:01:54, Step 280/357 in Ep 25, 0.45s, loss:1.1237
+2020-04-06_01:02:03, Step 300/357 in Ep 25, 0.41s, loss:0.6887
+2020-04-06_01:02:12, Step 320/357 in Ep 25, 0.45s, loss:1.2097
+2020-04-06_01:02:20, Step 340/357 in Ep 25, 0.44s, loss:0.5383
+2020-04-06_01:02:27, Step 357/357 in Ep 25, 0.13s, loss:1.8354
+Ep25, 157.11s, loss 0.9774
+2020-04-06_01:02:38, Step 20/357 in Ep 26, 0.40s, loss:1.2726
+2020-04-06_01:02:46, Step 40/357 in Ep 26, 0.44s, loss:0.5287
+2020-04-06_01:02:54, Step 60/357 in Ep 26, 0.40s, loss:1.5924
+2020-04-06_01:03:02, Step 80/357 in Ep 26, 0.40s, loss:0.6071
+2020-04-06_01:03:10, Step 100/357 in Ep 26, 0.40s, loss:0.8859
+2020-04-06_01:03:19, Step 120/357 in Ep 26, 0.40s, loss:0.5640
+2020-04-06_01:03:27, Step 140/357 in Ep 26, 0.40s, loss:0.6551
+2020-04-06_01:03:35, Step 160/357 in Ep 26, 0.40s, loss:0.4670
+2020-04-06_01:03:43, Step 180/357 in Ep 26, 0.39s, loss:0.7463
+2020-04-06_01:03:51, Step 200/357 in Ep 26, 0.40s, loss:0.7834
+2020-04-06_01:03:59, Step 220/357 in Ep 26, 0.40s, loss:1.2045
+2020-04-06_01:04:07, Step 240/357 in Ep 26, 0.40s, loss:1.0105
+2020-04-06_01:04:16, Step 260/357 in Ep 26, 0.40s, loss:0.7954
+2020-04-06_01:04:24, Step 280/357 in Ep 26, 0.40s, loss:0.5300
+2020-04-06_01:04:32, Step 300/357 in Ep 26, 0.40s, loss:0.6599
+2020-04-06_01:04:40, Step 320/357 in Ep 26, 0.41s, loss:1.2070
+2020-04-06_01:04:48, Step 340/357 in Ep 26, 0.40s, loss:0.4824
+2020-04-06_01:04:55, Step 357/357 in Ep 26, 0.13s, loss:1.8743
+Ep26, 147.13s, loss 0.8814
+2020-04-06_01:05:06, Step 20/357 in Ep 27, 0.45s, loss:0.9681
+2020-04-06_01:05:15, Step 40/357 in Ep 27, 0.45s, loss:1.0837
+2020-04-06_01:05:24, Step 60/357 in Ep 27, 0.44s, loss:0.4630
+2020-04-06_01:05:33, Step 80/357 in Ep 27, 0.45s, loss:0.8002
+2020-04-06_01:05:41, Step 100/357 in Ep 27, 0.44s, loss:1.3882
+2020-04-06_01:05:50, Step 120/357 in Ep 27, 0.45s, loss:0.6744
+2020-04-06_01:05:59, Step 140/357 in Ep 27, 0.45s, loss:0.8067
+2020-04-06_01:06:08, Step 160/357 in Ep 27, 0.45s, loss:1.0287
+2020-04-06_01:06:17, Step 180/357 in Ep 27, 0.45s, loss:2.2292
+2020-04-06_01:06:25, Step 200/357 in Ep 27, 0.43s, loss:0.7139
+2020-04-06_01:06:34, Step 220/357 in Ep 27, 0.40s, loss:0.7870
+2020-04-06_01:06:43, Step 240/357 in Ep 27, 0.45s, loss:0.7326
+2020-04-06_01:06:52, Step 260/357 in Ep 27, 0.45s, loss:1.6168
+2020-04-06_01:07:01, Step 280/357 in Ep 27, 0.45s, loss:0.7110
+2020-04-06_01:07:09, Step 300/357 in Ep 27, 0.45s, loss:0.5240
+2020-04-06_01:07:18, Step 320/357 in Ep 27, 0.45s, loss:0.8814
+2020-04-06_01:07:27, Step 340/357 in Ep 27, 0.45s, loss:0.8372
+2020-04-06_01:07:34, Step 357/357 in Ep 27, 0.13s, loss:2.2015
+Ep27, 159.50s, loss 0.8120
+2020-04-06_01:07:46, Step 20/357 in Ep 28, 0.45s, loss:1.0574
+2020-04-06_01:07:54, Step 40/357 in Ep 28, 0.40s, loss:0.9252
+2020-04-06_01:08:03, Step 60/357 in Ep 28, 0.40s, loss:0.6543
+2020-04-06_01:08:11, Step 80/357 in Ep 28, 0.45s, loss:0.5176
+2020-04-06_01:08:20, Step 100/357 in Ep 28, 0.45s, loss:0.7989
+2020-04-06_01:08:29, Step 120/357 in Ep 28, 0.45s, loss:0.7920
+2020-04-06_01:08:38, Step 140/357 in Ep 28, 0.45s, loss:1.0969
+2020-04-06_01:08:47, Step 160/357 in Ep 28, 0.45s, loss:0.8652
+2020-04-06_01:08:56, Step 180/357 in Ep 28, 0.40s, loss:0.9301
+2020-04-06_01:09:04, Step 200/357 in Ep 28, 0.40s, loss:0.5222
+2020-04-06_01:09:13, Step 220/357 in Ep 28, 0.45s, loss:0.3835
+2020-04-06_01:09:22, Step 240/357 in Ep 28, 0.41s, loss:0.6260
+2020-04-06_01:09:30, Step 260/357 in Ep 28, 0.45s, loss:1.3453
+2020-04-06_01:09:39, Step 280/357 in Ep 28, 0.40s, loss:0.7138
+2020-04-06_01:09:48, Step 300/357 in Ep 28, 0.45s, loss:0.5617
+2020-04-06_01:09:57, Step 320/357 in Ep 28, 0.40s, loss:0.5302
+2020-04-06_01:10:06, Step 340/357 in Ep 28, 0.45s, loss:0.7511
+2020-04-06_01:10:13, Step 357/357 in Ep 28, 0.13s, loss:2.8011
+Ep28, 158.52s, loss 0.7246
+2020-04-06_01:10:23, Step 20/357 in Ep 29, 0.40s, loss:0.4924
+2020-04-06_01:10:31, Step 40/357 in Ep 29, 0.40s, loss:0.9347
+2020-04-06_01:10:39, Step 60/357 in Ep 29, 0.40s, loss:0.6382
+2020-04-06_01:10:47, Step 80/357 in Ep 29, 0.40s, loss:0.3556
+2020-04-06_01:10:55, Step 100/357 in Ep 29, 0.40s, loss:0.4421
+2020-04-06_01:11:03, Step 120/357 in Ep 29, 0.40s, loss:1.3746
+2020-04-06_01:11:11, Step 140/357 in Ep 29, 0.40s, loss:0.7965
+2020-04-06_01:11:19, Step 160/357 in Ep 29, 0.40s, loss:1.4921
+2020-04-06_01:11:27, Step 180/357 in Ep 29, 0.44s, loss:0.5961
+2020-04-06_01:11:36, Step 200/357 in Ep 29, 0.40s, loss:0.6007
+2020-04-06_01:11:44, Step 220/357 in Ep 29, 0.39s, loss:0.6721
+2020-04-06_01:11:52, Step 240/357 in Ep 29, 0.40s, loss:0.6156
+2020-04-06_01:12:00, Step 260/357 in Ep 29, 0.39s, loss:0.8948
+2020-04-06_01:12:08, Step 280/357 in Ep 29, 0.39s, loss:0.3053
+2020-04-06_01:12:16, Step 300/357 in Ep 29, 0.40s, loss:0.4673
+2020-04-06_01:12:24, Step 320/357 in Ep 29, 0.39s, loss:1.0390
+2020-04-06_01:12:32, Step 340/357 in Ep 29, 0.44s, loss:0.5765
+2020-04-06_01:12:39, Step 357/357 in Ep 29, 0.13s, loss:2.4430
+Ep29, 145.99s, loss 0.6531
+2020-04-06_01:12:50, Step 20/357 in Ep 30, 0.45s, loss:0.7251
+2020-04-06_01:12:59, Step 40/357 in Ep 30, 0.45s, loss:0.2551
+2020-04-06_01:13:07, Step 60/357 in Ep 30, 0.40s, loss:0.6064
+2020-04-06_01:13:16, Step 80/357 in Ep 30, 0.45s, loss:0.6378
+2020-04-06_01:13:25, Step 100/357 in Ep 30, 0.41s, loss:0.4654
+2020-04-06_01:13:33, Step 120/357 in Ep 30, 0.45s, loss:0.8755
+2020-04-06_01:13:42, Step 140/357 in Ep 30, 0.39s, loss:0.5790
+2020-04-06_01:13:51, Step 160/357 in Ep 30, 0.44s, loss:0.5407
+2020-04-06_01:13:59, Step 180/357 in Ep 30, 0.45s, loss:0.4010
+2020-04-06_01:14:08, Step 200/357 in Ep 30, 0.43s, loss:0.5484
+2020-04-06_01:14:16, Step 220/357 in Ep 30, 0.43s, loss:0.4664
+2020-04-06_01:14:25, Step 240/357 in Ep 30, 0.43s, loss:0.4696
+2020-04-06_01:14:33, Step 260/357 in Ep 30, 0.38s, loss:0.7626
+2020-04-06_01:14:42, Step 280/357 in Ep 30, 0.44s, loss:0.9953
+2020-04-06_01:14:50, Step 300/357 in Ep 30, 0.43s, loss:1.1605
+2020-04-06_01:14:59, Step 320/357 in Ep 30, 0.37s, loss:0.4375
+2020-04-06_01:15:07, Step 340/357 in Ep 30, 0.41s, loss:0.4585
+2020-04-06_01:15:14, Step 357/357 in Ep 30, 0.12s, loss:8.6816
+Ep30, 154.92s, loss 0.6592
+att test with feat_func_att
+extracting features for attribute recognition
+238 batches done, total 19.36s
+computing attribute recognition result
+------------------------------------------------------------
+Evaluation on test set:
+Label-based evaluation:
+ mA: 0.8335
+Instance-based evaluation:
+ Acc: 0.7762, Prec: 0.8612, Rec: 0.8501, F1: 0.8556
+------------------------------------------------------------
+2020-04-06_01:15:43, Step 20/357 in Ep 31, 0.38s, loss:1.3731
+2020-04-06_01:15:51, Step 40/357 in Ep 31, 0.39s, loss:1.1589
+2020-04-06_01:15:59, Step 60/357 in Ep 31, 0.38s, loss:0.5785
+2020-04-06_01:16:07, Step 80/357 in Ep 31, 0.38s, loss:0.6575
+2020-04-06_01:16:15, Step 100/357 in Ep 31, 0.38s, loss:0.7549
+2020-04-06_01:16:22, Step 120/357 in Ep 31, 0.38s, loss:1.2963
+2020-04-06_01:16:30, Step 140/357 in Ep 31, 0.39s, loss:0.4988
+2020-04-06_01:16:38, Step 160/357 in Ep 31, 0.38s, loss:0.5511
+2020-04-06_01:16:46, Step 180/357 in Ep 31, 0.39s, loss:0.4937
+2020-04-06_01:16:54, Step 200/357 in Ep 31, 0.38s, loss:0.4815
+2020-04-06_01:17:02, Step 220/357 in Ep 31, 0.40s, loss:0.6462
+2020-04-06_01:17:10, Step 240/357 in Ep 31, 0.39s, loss:1.7580
+2020-04-06_01:17:18, Step 260/357 in Ep 31, 0.39s, loss:0.5953
+2020-04-06_01:17:26, Step 280/357 in Ep 31, 0.40s, loss:0.5975
+2020-04-06_01:17:34, Step 300/357 in Ep 31, 0.38s, loss:0.4557
+2020-04-06_01:17:42, Step 320/357 in Ep 31, 0.38s, loss:0.5134
+2020-04-06_01:17:49, Step 340/357 in Ep 31, 0.38s, loss:1.0046
+2020-04-06_01:17:56, Step 357/357 in Ep 31, 0.12s, loss:1.3881
+Ep31, 142.75s, loss 0.7659
+2020-04-06_01:18:07, Step 20/357 in Ep 32, 0.43s, loss:0.6290
+2020-04-06_01:18:15, Step 40/357 in Ep 32, 0.43s, loss:0.4774
+2020-04-06_01:18:24, Step 60/357 in Ep 32, 0.43s, loss:1.0642
+2020-04-06_01:18:32, Step 80/357 in Ep 32, 0.44s, loss:0.5322
+2020-04-06_01:18:41, Step 100/357 in Ep 32, 0.45s, loss:0.4726
+2020-04-06_01:18:49, Step 120/357 in Ep 32, 0.44s, loss:0.5386
+2020-04-06_01:18:58, Step 140/357 in Ep 32, 0.42s, loss:0.5859
+2020-04-06_01:19:07, Step 160/357 in Ep 32, 0.38s, loss:0.8729
+2020-04-06_01:19:15, Step 180/357 in Ep 32, 0.40s, loss:1.2822
+2020-04-06_01:19:24, Step 200/357 in Ep 32, 0.44s, loss:0.5091
+2020-04-06_01:19:32, Step 220/357 in Ep 32, 0.43s, loss:0.7970
+2020-04-06_01:19:41, Step 240/357 in Ep 32, 0.44s, loss:0.5389
+2020-04-06_01:19:49, Step 260/357 in Ep 32, 0.44s, loss:0.7654
+2020-04-06_01:19:58, Step 280/357 in Ep 32, 0.44s, loss:0.7680
+2020-04-06_01:20:06, Step 300/357 in Ep 32, 0.38s, loss:0.5439
+2020-04-06_01:20:15, Step 320/357 in Ep 32, 0.38s, loss:0.4147
+2020-04-06_01:20:23, Step 340/357 in Ep 32, 0.43s, loss:0.2830
+2020-04-06_01:20:30, Step 357/357 in Ep 32, 0.13s, loss:1.2653
+Ep32, 154.19s, loss 0.6590
+2020-04-06_01:20:41, Step 20/357 in Ep 33, 0.44s, loss:0.3823
+2020-04-06_01:20:50, Step 40/357 in Ep 33, 0.44s, loss:0.6195
+2020-04-06_01:20:58, Step 60/357 in Ep 33, 0.43s, loss:0.8126
+2020-04-06_01:21:07, Step 80/357 in Ep 33, 0.44s, loss:0.2323
+2020-04-06_01:21:15, Step 100/357 in Ep 33, 0.44s, loss:1.0040
+2020-04-06_01:21:24, Step 120/357 in Ep 33, 0.44s, loss:0.3290
+2020-04-06_01:21:32, Step 140/357 in Ep 33, 0.44s, loss:0.3453
+2020-04-06_01:21:41, Step 160/357 in Ep 33, 0.40s, loss:0.4451
+2020-04-06_01:21:49, Step 180/357 in Ep 33, 0.45s, loss:0.4032
+2020-04-06_01:21:58, Step 200/357 in Ep 33, 0.43s, loss:0.5656
+2020-04-06_01:22:06, Step 220/357 in Ep 33, 0.44s, loss:0.4777
+2020-04-06_01:22:15, Step 240/357 in Ep 33, 0.43s, loss:1.0050
+2020-04-06_01:22:23, Step 260/357 in Ep 33, 0.43s, loss:0.7946
+2020-04-06_01:22:32, Step 280/357 in Ep 33, 0.42s, loss:0.3361
+2020-04-06_01:22:40, Step 300/357 in Ep 33, 0.38s, loss:0.9145
+2020-04-06_01:22:49, Step 320/357 in Ep 33, 0.43s, loss:0.3230
+2020-04-06_01:22:57, Step 340/357 in Ep 33, 0.43s, loss:0.3594
+2020-04-06_01:23:04, Step 357/357 in Ep 33, 0.12s, loss:4.8660
+Ep33, 154.01s, loss 0.5706
+2020-04-06_01:23:14, Step 20/357 in Ep 34, 0.38s, loss:0.8233
+2020-04-06_01:23:22, Step 40/357 in Ep 34, 0.38s, loss:0.5306
+2020-04-06_01:23:29, Step 60/357 in Ep 34, 0.38s, loss:0.3342
+2020-04-06_01:23:37, Step 80/357 in Ep 34, 0.38s, loss:0.1993
+2020-04-06_01:23:45, Step 100/357 in Ep 34, 0.39s, loss:0.2457
+2020-04-06_01:23:53, Step 120/357 in Ep 34, 0.38s, loss:0.2496
+2020-04-06_01:24:00, Step 140/357 in Ep 34, 0.38s, loss:1.1400
+2020-04-06_01:24:08, Step 160/357 in Ep 34, 0.38s, loss:0.3943
+2020-04-06_01:24:16, Step 180/357 in Ep 34, 0.39s, loss:0.4486
+2020-04-06_01:24:24, Step 200/357 in Ep 34, 0.38s, loss:0.4043
+2020-04-06_01:24:32, Step 220/357 in Ep 34, 0.39s, loss:0.3350
+2020-04-06_01:24:39, Step 240/357 in Ep 34, 0.38s, loss:0.2768
+2020-04-06_01:24:47, Step 260/357 in Ep 34, 0.38s, loss:0.5213
+2020-04-06_01:24:55, Step 280/357 in Ep 34, 0.38s, loss:0.7995
+2020-04-06_01:25:03, Step 300/357 in Ep 34, 0.38s, loss:0.6477
+2020-04-06_01:25:11, Step 320/357 in Ep 34, 0.38s, loss:0.6019
+2020-04-06_01:25:18, Step 340/357 in Ep 34, 0.38s, loss:0.2280
+2020-04-06_01:25:25, Step 357/357 in Ep 34, 0.13s, loss:1.3827
+Ep34, 140.73s, loss 0.5649
+2020-04-06_01:25:36, Step 20/357 in Ep 35, 0.43s, loss:0.2716
+2020-04-06_01:25:44, Step 40/357 in Ep 35, 0.43s, loss:0.5381
+2020-04-06_01:25:53, Step 60/357 in Ep 35, 0.45s, loss:0.8499
+2020-04-06_01:26:01, Step 80/357 in Ep 35, 0.43s, loss:0.3732
+2020-04-06_01:26:10, Step 100/357 in Ep 35, 0.42s, loss:0.2898
+2020-04-06_01:26:18, Step 120/357 in Ep 35, 0.43s, loss:0.3021
+2020-04-06_01:26:27, Step 140/357 in Ep 35, 0.44s, loss:0.4093
+2020-04-06_01:26:35, Step 160/357 in Ep 35, 0.43s, loss:0.7342
+2020-04-06_01:26:44, Step 180/357 in Ep 35, 0.43s, loss:0.4510
+2020-04-06_01:26:52, Step 200/357 in Ep 35, 0.43s, loss:0.3223
+2020-04-06_01:27:00, Step 220/357 in Ep 35, 0.38s, loss:0.3811
+2020-04-06_01:27:09, Step 240/357 in Ep 35, 0.43s, loss:0.5864
+2020-04-06_01:27:17, Step 260/357 in Ep 35, 0.43s, loss:0.2585
+2020-04-06_01:27:26, Step 280/357 in Ep 35, 0.43s, loss:0.4653
+2020-04-06_01:27:34, Step 300/357 in Ep 35, 0.43s, loss:0.4173
+2020-04-06_01:27:43, Step 320/357 in Ep 35, 0.38s, loss:0.3876
+2020-04-06_01:27:51, Step 340/357 in Ep 35, 0.43s, loss:0.3261
+2020-04-06_01:27:58, Step 357/357 in Ep 35, 0.13s, loss:2.3431
+Ep35, 153.63s, loss 0.4908
+2020-04-06_01:28:10, Step 20/357 in Ep 36, 0.44s, loss:0.6721
+2020-04-06_01:28:18, Step 40/357 in Ep 36, 0.44s, loss:0.2606
+2020-04-06_01:28:26, Step 60/357 in Ep 36, 0.40s, loss:0.2988
+2020-04-06_01:28:35, Step 80/357 in Ep 36, 0.39s, loss:0.2047
+2020-04-06_01:28:44, Step 100/357 in Ep 36, 0.46s, loss:0.5993
+2020-04-06_01:28:52, Step 120/357 in Ep 36, 0.46s, loss:1.0901
+2020-04-06_01:29:01, Step 140/357 in Ep 36, 0.44s, loss:0.2575
+2020-04-06_01:29:09, Step 160/357 in Ep 36, 0.42s, loss:0.6099
+2020-04-06_01:29:18, Step 180/357 in Ep 36, 0.43s, loss:0.4958
+2020-04-06_01:29:26, Step 200/357 in Ep 36, 0.44s, loss:0.4642
+2020-04-06_01:29:35, Step 220/357 in Ep 36, 0.44s, loss:0.3701
+2020-04-06_01:29:43, Step 240/357 in Ep 36, 0.42s, loss:0.2993
+2020-04-06_01:29:52, Step 260/357 in Ep 36, 0.40s, loss:0.3537
+2020-04-06_01:30:01, Step 280/357 in Ep 36, 0.42s, loss:0.6556
+2020-04-06_01:30:09, Step 300/357 in Ep 36, 0.40s, loss:0.5140
+2020-04-06_01:30:18, Step 320/357 in Ep 36, 0.39s, loss:0.3091
+2020-04-06_01:30:26, Step 340/357 in Ep 36, 0.42s, loss:0.5436
+2020-04-06_01:30:34, Step 357/357 in Ep 36, 0.13s, loss:2.1625
+Ep36, 155.32s, loss 0.4925
+2020-04-06_01:30:44, Step 20/357 in Ep 37, 0.39s, loss:0.3727
+2020-04-06_01:30:52, Step 40/357 in Ep 37, 0.39s, loss:1.1247
+2020-04-06_01:31:00, Step 60/357 in Ep 37, 0.39s, loss:0.3668
+2020-04-06_01:31:08, Step 80/357 in Ep 37, 0.39s, loss:0.2377
+2020-04-06_01:31:16, Step 100/357 in Ep 37, 0.40s, loss:0.1934
+2020-04-06_01:31:24, Step 120/357 in Ep 37, 0.39s, loss:0.5032
+2020-04-06_01:31:32, Step 140/357 in Ep 37, 0.39s, loss:0.3851
+2020-04-06_01:31:39, Step 160/357 in Ep 37, 0.43s, loss:0.2598
+2020-04-06_01:31:47, Step 180/357 in Ep 37, 0.39s, loss:0.4161
+2020-04-06_01:31:55, Step 200/357 in Ep 37, 0.39s, loss:0.2978
+2020-04-06_01:32:03, Step 220/357 in Ep 37, 0.40s, loss:0.8534
+2020-04-06_01:32:11, Step 240/357 in Ep 37, 0.39s, loss:0.8392
+2020-04-06_01:32:19, Step 260/357 in Ep 37, 0.38s, loss:0.5586
+2020-04-06_01:32:27, Step 280/357 in Ep 37, 0.38s, loss:0.3449
+2020-04-06_01:32:34, Step 300/357 in Ep 37, 0.38s, loss:0.2251
+2020-04-06_01:32:42, Step 320/357 in Ep 37, 0.38s, loss:0.2732
+2020-04-06_01:32:50, Step 340/357 in Ep 37, 0.39s, loss:0.6487
+2020-04-06_01:32:56, Step 357/357 in Ep 37, 0.13s, loss:2.4009
+Ep37, 142.37s, loss 0.4463
+2020-04-06_01:33:07, Step 20/357 in Ep 38, 0.44s, loss:0.4461
+2020-04-06_01:33:16, Step 40/357 in Ep 38, 0.43s, loss:0.5819
+2020-04-06_01:33:24, Step 60/357 in Ep 38, 0.43s, loss:0.4623
+2020-04-06_01:33:32, Step 80/357 in Ep 38, 0.42s, loss:0.4566
+2020-04-06_01:33:41, Step 100/357 in Ep 38, 0.45s, loss:0.4033
+2020-04-06_01:33:50, Step 120/357 in Ep 38, 0.44s, loss:0.2691
+2020-04-06_01:33:59, Step 140/357 in Ep 38, 0.45s, loss:0.5100
+2020-04-06_01:34:07, Step 160/357 in Ep 38, 0.45s, loss:0.4869
+2020-04-06_01:34:16, Step 180/357 in Ep 38, 0.40s, loss:0.2015
+2020-04-06_01:34:24, Step 200/357 in Ep 38, 0.44s, loss:0.3715
+2020-04-06_01:34:33, Step 220/357 in Ep 38, 0.41s, loss:0.5434
+2020-04-06_01:34:41, Step 240/357 in Ep 38, 0.45s, loss:0.5131
+2020-04-06_01:34:50, Step 260/357 in Ep 38, 0.45s, loss:0.2540
+2020-04-06_01:34:59, Step 280/357 in Ep 38, 0.41s, loss:0.3460
