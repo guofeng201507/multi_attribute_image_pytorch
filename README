@@ -1,3 +1,10 @@
 pip install torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html
 
 pip install Pillow==6.1
+
+Issues encountered:
+
+loss.backward()
+Process finished with exit code -1073741819 (0xC0000005)
+https://discuss.pytorch.org/t/please-help-me-solve-this-error-process-finished-with-exit-code-1073741819-0xc0000005/57932/8
+Suggested to use python 3.5

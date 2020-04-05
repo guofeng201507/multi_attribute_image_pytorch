@@ -18,26 +18,26 @@ import argparse
 from baseline.dataset import add_transforms
 from baseline.dataset.Dataset import AttDataset
 from baseline.model.DeepMAR import DeepMAR_ResNet50
-from baseline.model.DeepMAR import DeepMAR_ResNet50_ExtractFeature 
+from baseline.model.DeepMAR import DeepMAR_ResNet50_ExtractFeature
 from baseline.utils.evaluate import attribute_evaluate
 from baseline.utils.utils import str2bool
 from baseline.utils.utils import transfer_optim_state
 from baseline.utils.utils import time_str
 from baseline.utils.utils import save_ckpt, load_ckpt
-from baseline.utils.utils import load_state_dict 
+from baseline.utils.utils import load_state_dict
 from baseline.utils.utils import ReDirectSTD
 from baseline.utils.utils import adjust_lr_staircase
 from baseline.utils.utils import set_devices
 from baseline.utils.utils import AverageMeter
-from baseline.utils.utils import to_scalar 
-from baseline.utils.utils import may_set_mode 
-from baseline.utils.utils import may_mkdir 
+from baseline.utils.utils import to_scalar
+from baseline.utils.utils import may_set_mode
+from baseline.utils.utils import may_mkdir
 from baseline.utils.utils import set_seed
 
 
 class Config(object):
     def __init__(self):
-        
+
         parser = argparse.ArgumentParser()
         parser.add_argument('-d', '--sys_device_ids', type=eval, default=(0,))
         parser.add_argument('--set_seed', type=str2bool, default=False)
@@ -83,14 +83,14 @@ class Config(object):
         parser.add_argument('--epochs_per_save', type=int, default=50)
         parser.add_argument('--run', type=int, default=1)
         args = parser.parse_args()
-        
+
         # gpu ids
         self.sys_device_ids = args.sys_device_ids
         # random
         self.set_seed = args.set_seed
         if self.set_seed:
             self.rand_seed = 0
-        else: 
+        else:
             self.rand_seed = None
         # run time index
         self.run = args.run
@@ -105,7 +105,7 @@ class Config(object):
         partitions['rap'] = './dataset/rap/rap_partition.pkl'
         partitions['pa100k'] = './dataset/pa100k/pa100k_partition.pkl'
         partitions['rap2'] = './dataset/rap2/rap2_partition.pkl'
-        
+
         self.dataset_name = args.dataset
         if args.dataset not in datasets or args.dataset not in partitions:
             print("Please select the right dataset name.")
@@ -153,7 +153,7 @@ class Config(object):
         self.epochs_per_val = args.epochs_per_val
         self.epochs_per_save = args.epochs_per_save
         self.run = args.run
-        
+
         # for model
         model_kwargs = dict()
         model_kwargs['num_att'] = args.num_att
@@ -165,15 +165,18 @@ class Config(object):
         self.test_kwargs = dict()
 
         if self.exp_dir == '':
-            self.exp_dir = os.path.join('exp',
+            self.exp_dir = os.path.join("exp",
                 '{}'.format(self.exp_subpath),
                 '{}'.format(self.dataset_name),
                 'partition{}'.format(self.partition_idx),
                 'run{}'.format(self.run))
         self.stdout_file = os.path.join(self.exp_dir, \
             'log', 'stdout_{}.txt'.format(time_str()))
-        self.stderr_file = os.path.join(self.exp_dir, \
+        self.stderr_file = os.path.join(self.exp_dir,\
             'log', 'stderr_{}.txt'.format(time_str()))
+
+        # self.stdout_file = 'stdout_{}.txt'.format(time_str())
+        # self.stderr_file = 'stderr_{}.txt'.format(time_str())
         may_mkdir(self.stdout_file)
 
 def main():
@@ -356,9 +359,15 @@ def main():
             # loss for the attribute classification, average over the batch size
             targets_var[targets_var == -1] = 0
             loss = criterion(score, targets_var, weight=Variable(weights.cuda()))*num_att
+            # loss = criterion(score, targets_var)*num_att
+            # loss = criterion(score, targets_var)
 
             optimizer.zero_grad()
-            loss.backward()
+            # loss.backward()
+            try:
+                loss.backward()
+            except Exception as e:
+                print(str(e))
             optimizer.step()
 
             ############
