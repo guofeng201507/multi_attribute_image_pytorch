@@ -22,7 +22,7 @@ from baseline.model.DeepMAR import DeepMAR_ResNet50_ExtractFeature
 from baseline.utils.evaluate import attribute_evaluate
 from baseline.utils.utils import str2bool
 from baseline.utils.utils import transfer_optim_state
-from baseline.utils.utils import time_str
+# from baseline.utils.utils import time_str
 from baseline.utils.utils import save_ckpt, load_ckpt
 from baseline.utils.utils import load_state_dict
 from baseline.utils.utils import ReDirectSTD
@@ -35,6 +35,10 @@ from baseline.utils.utils import may_mkdir
 from baseline.utils.utils import set_seed
 
 
+def time_str():
+    return 'FUCK'
+
+
 class Config(object):
     def __init__(self):
 
@@ -43,7 +47,7 @@ class Config(object):
         parser.add_argument('--set_seed', type=str2bool, default=False)
         ## dataset parameter
         parser.add_argument('--dataset', type=str, default='peta',
-                choices=['peta','rap', 'pa100k', 'rap2'])
+                            choices=['peta', 'rap', 'pa100k', 'rap2'])
         parser.add_argument('--split', type=str, default='trainval',
                             choices=['trainval', 'train'])
         parser.add_argument('--test_split', type=str, default='test')
@@ -55,7 +59,7 @@ class Config(object):
         # model
         parser.add_argument('--num_att', type=int, default=35)
         parser.add_argument('--pretrained', type=str2bool, default=True)
-        parser.add_argument('--last_conv_stride', type=int, default=2, choices=[1,2])
+        parser.add_argument('--last_conv_stride', type=int, default=2, choices=[1, 2])
         parser.add_argument('--drop_pool5', type=str2bool, default=True)
         parser.add_argument('--drop_pool5_rate', type=float, default=0.5)
 
@@ -67,7 +71,7 @@ class Config(object):
                             default=(50, 100))
         parser.add_argument('--staircase_decay_multiple_factor', type=float,
                             default=0.1)
-        parser.add_argument('--total_epochs', type=int, default=150)
+        parser.add_argument('--total_epochs', type=int, default=10)
         parser.add_argument('--weighted_entropy', type=str2bool, default=True)
         # utils
         parser.add_argument('--resume', type=str2bool, default=False)
@@ -165,19 +169,20 @@ class Config(object):
         self.test_kwargs = dict()
 
         if self.exp_dir == '':
-            self.exp_dir = os.path.join("exp",
-                '{}'.format(self.exp_subpath),
-                '{}'.format(self.dataset_name),
-                'partition{}'.format(self.partition_idx),
-                'run{}'.format(self.run))
+            self.exp_dir = os.path.join(".\\exp",
+                                        '{}'.format(self.exp_subpath),
+                                        '{}'.format(self.dataset_name),
+                                        'partition{}'.format(self.partition_idx),
+                                        'run{}'.format(self.run))
         self.stdout_file = os.path.join(self.exp_dir, \
-            'log', 'stdout_{}.txt'.format(time_str()))
-        self.stderr_file = os.path.join(self.exp_dir,\
-            'log', 'stderr_{}.txt'.format(time_str()))
+                                        'log', "stdout_{}.txt".format(time_str()))
+        self.stderr_file = os.path.join(self.exp_dir, \
+                                        'log', "stderr_{}.txt".format(time_str()))
 
         # self.stdout_file = 'stdout_{}.txt'.format(time_str())
         # self.stderr_file = 'stderr_{}.txt'.format(time_str())
         may_mkdir(self.stdout_file)
+
 
 def main():
     ### main function ###
@@ -197,46 +202,46 @@ def main():
 
     # set the random seed
     if cfg.set_seed:
-        set_seed( cfg.rand_seed )
+        set_seed(cfg.rand_seed)
     # init the gpu ids
     set_devices(cfg.sys_device_ids)
 
     # dataset
     normalize = transforms.Normalize(mean=cfg.mean, std=cfg.std)
     transform = transforms.Compose([
-            transforms.Resize(cfg.resize),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(), # 3*H*W, [0, 1]
-            normalize,]) # normalize with mean/std
+        transforms.Resize(cfg.resize),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),  # 3*H*W, [0, 1]
+        normalize, ])  # normalize with mean/std
     # by a subset of attributes
     train_set = AttDataset(
-        dataset = cfg.dataset,
-        partition = cfg.partition,
-        split = cfg.split,
-        partition_idx= cfg.partition_idx,
-        transform = transform)
+        dataset=cfg.dataset,
+        partition=cfg.partition,
+        split=cfg.split,
+        partition_idx=cfg.partition_idx,
+        transform=transform)
 
     num_att = len(train_set.dataset['selected_attribute'])
     cfg.model_kwargs['num_att'] = num_att
 
     train_loader = torch.utils.data.DataLoader(
-        dataset = train_set,
-        batch_size = cfg.batch_size,
-        shuffle = True,
-        num_workers = cfg.workers,
-        pin_memory = True,
-        drop_last = False)
+        dataset=train_set,
+        batch_size=cfg.batch_size,
+        shuffle=True,
+        num_workers=cfg.workers,
+        pin_memory=True,
+        drop_last=False)
 
     test_transform = transforms.Compose([
-            transforms.Resize(cfg.resize),
-            transforms.ToTensor(),
-            normalize,])
+        transforms.Resize(cfg.resize),
+        transforms.ToTensor(),
+        normalize, ])
     test_set = AttDataset(
-        dataset = cfg.dataset,
-        partition = cfg.partition,
-        split = cfg.test_split,
-        partition_idx = cfg.partition_idx,
-        transform = test_transform)
+        dataset=cfg.dataset,
+        partition=cfg.partition,
+        split=cfg.test_split,
+        partition_idx=cfg.partition_idx,
+        transform=test_transform)
     ### Att model ###
     model = DeepMAR_ResNet50(**cfg.model_kwargs)
 
@@ -268,7 +273,7 @@ def main():
     finetuned_params = []
     new_params = []
     for n, p in model.named_parameters():
-        if n.find('classifier') >=0:
+        if n.find('classifier') >= 0:
             new_params.append(p)
         else:
             finetuned_params.append(p)
@@ -277,14 +282,14 @@ def main():
 
     optimizer = optim.SGD(
         param_groups,
-        momentum = cfg.sgd_momentum,
-        weight_decay = cfg.sgd_weight_decay)
+        momentum=cfg.sgd_momentum,
+        weight_decay=cfg.sgd_weight_decay)
     # bind the model and optimizer
     modules_optims = [model, optimizer]
 
     # load model weight if necessary
     if cfg.load_model_weight:
-        map_location = (lambda storage, loc:storage)
+        map_location = (lambda storage, loc: storage)
         ckpt = torch.load(cfg.model_weight_file, map_location=map_location)
         model.load_state_dict(ckpt['state_dicts'][0], strict=False)
 
@@ -308,9 +313,10 @@ def main():
         result = attribute_evaluate(feat_func, test_set, **test_kwargs)
         print('-' * 60)
         print('Evaluation on %s set:' % (cfg.test_split))
-        print('Label-based evaluation: \n mA: %.4f'%(np.mean(result['label_acc'])))
+        print('Label-based evaluation: \n mA: %.4f' % (np.mean(result['label_acc'])))
         print('Instance-based evaluation: \n Acc: %.4f, Prec: %.4f, Rec: %.4f, F1: %.4f' \
-            %(result['instance_acc'], result['instance_precision'], result['instance_recall'], result['instance_F1']))
+              % (
+              result['instance_acc'], result['instance_precision'], result['instance_recall'], result['instance_F1']))
         print('-' * 60)
 
     # print the model into log
@@ -358,7 +364,7 @@ def main():
 
             # loss for the attribute classification, average over the batch size
             targets_var[targets_var == -1] = 0
-            loss = criterion(score, targets_var, weight=Variable(weights.cuda()))*num_att
+            loss = criterion(score, targets_var, weight=Variable(weights.cuda())) * num_att
             # loss = criterion(score, targets_var)*num_att
             # loss = criterion(score, targets_var)
 
@@ -375,29 +381,30 @@ def main():
             ############
             loss_meter.update(to_scalar(loss))
 
-            if (step+1) % cfg.steps_per_log == 0 or (step+1)%len(train_loader) == 0:
+            if (step + 1) % cfg.steps_per_log == 0 or (step + 1) % len(train_loader) == 0:
                 log = '{}, Step {}/{} in Ep {}, {:.2f}s, loss:{:.4f}'.format( \
-                time_str(), step+1, dataset_L, epoch+1, time.time()-step_st, loss_meter.val)
+                    time_str(), step + 1, dataset_L, epoch + 1, time.time() - step_st, loss_meter.val)
                 print(log)
 
         ##############
         # epoch log  #
         ##############
         log = 'Ep{}, {:.2f}s, loss {:.4f}'.format(
-            epoch+1, time.time() - ep_st, loss_meter.avg)
+            epoch + 1, time.time() - ep_st, loss_meter.avg)
         print(log)
 
         # model ckpt
-        if (epoch + 1) % cfg.epochs_per_save == 0 or epoch+1 == cfg.total_epochs:
-            ckpt_file = os.path.join(cfg.exp_dir, 'model', 'ckpt_epoch%d.pth'%(epoch+1))
-            save_ckpt(modules_optims, epoch+1, 0, ckpt_file)
+        if (epoch + 1) % cfg.epochs_per_save == 0 or epoch + 1 == cfg.total_epochs:
+            ckpt_file = os.path.join(cfg.exp_dir, 'model', 'ckpt_epoch%d.pth' % (epoch + 1))
+            save_ckpt(modules_optims, epoch + 1, 0, ckpt_file)
 
         ##########################
         # test on validation set #
         ##########################
-        if (epoch + 1) % cfg.epochs_per_val == 0 or epoch+1 == cfg.total_epochs:
+        if (epoch + 1) % cfg.epochs_per_val == 0 or epoch + 1 == cfg.total_epochs:
             print('att test with feat_func_att')
             attribute_evaluate_subfunc(feat_func_att, test_set, **cfg.test_kwargs)
+
 
 if __name__ == '__main__':
     main()

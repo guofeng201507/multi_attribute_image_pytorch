@@ -1,17 +1,17 @@
 import os
-import cPickle as pickle
-import datetime
-import time
+import random
+
+import numpy as np
 # from contextlib import contextmanger
 import torch
 from torch.autograd import Variable
-import random
-import numpy as np
 
-def time_str(fmt=None):
-    if fmt is None:
-        fmt = '%Y-%m-%d_%H:%M:%S'
-    return datetime.datetime.today().strftime(fmt)
+
+# def time_str(fmt=None):
+#     # if fmt is None:
+#     #     fmt = '%Y-%m-%d_%H:%M:%S'
+#     # # return datetime.datetime.today().strftime(fmt)
+#     return 'FUCK'
 
 def str2bool(v):
     return v.lower() in ("yes", "true", "1")
@@ -150,8 +150,9 @@ class ReDirectSTD(object):
                     f.write(msg)
             else:
                 if self.f is None:
-                    self.f = open(self.file, 'w')
-                self.f.write(msg)
+                    with open(self.file, 'w') as f:
+                        self.f = f
+                        self.f.write(msg)
 
     def flush(self):
         self.console.flush()
