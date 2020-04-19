@@ -8,3 +8,6 @@ loss.backward()
 Process finished with exit code -1073741819 (0xC0000005)
 https://discuss.pytorch.org/t/please-help-me-solve-this-error-process-finished-with-exit-code-1073741819-0xc0000005/57932/8
 Suggested to use python 3.5
+
+Pedestrian Attribute Recognition Dataset Summary
+https://zhuanlan.zhihu.com/p/83958315

@@ -3,6 +3,7 @@ import os
 import numpy as np
 import random
 import math
+import datetime
 
 import torch
 import torch.optim as optim
@@ -36,7 +37,8 @@ from baseline.utils.utils import set_seed
 
 
 def time_str():
-    return 'FUCK'
+    return datetime.datetime.now().strftime("%Y-%m-%d")
+    # return 'FUCK'
 
 
 class Config(object):
@@ -71,7 +73,7 @@ class Config(object):
                             default=(50, 100))
         parser.add_argument('--staircase_decay_multiple_factor', type=float,
                             default=0.1)
-        parser.add_argument('--total_epochs', type=int, default=10)
+        parser.add_argument('--total_epochs', type=int, default=100)
         parser.add_argument('--weighted_entropy', type=str2bool, default=True)
         # utils
         parser.add_argument('--resume', type=str2bool, default=False)
@@ -81,7 +83,7 @@ class Config(object):
         parser.add_argument('--test_only', type=str2bool, default=False)
         parser.add_argument('--exp_dir', type=str, default='')
         parser.add_argument('--exp_subpath', type=str, default='deepmar_resnet50')
-        parser.add_argument('--log_to_file', type=str2bool, default=False)
+        parser.add_argument('--log_to_file', type=str2bool, default=True)
         parser.add_argument('--steps_per_log', type=int, default=20)
         parser.add_argument('--epochs_per_val', type=int, default=10)
         parser.add_argument('--epochs_per_save', type=int, default=50)
