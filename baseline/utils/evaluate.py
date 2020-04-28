@@ -32,10 +32,10 @@ def extract_feat(feat_func, dataset, **kwargs):
 
 # attribute recognition evaluation 
 def attribute_evaluate(feat_func, dataset, **kwargs):
-    print "extracting features for attribute recognition"
+    print("extracting features for attribute recognition")
     pt_result = extract_feat(feat_func, dataset)
     # obain the attributes from the attribute dictionary
-    print "computing attribute recognition result"
+    print("computing attribute recognition result")
     N = pt_result.shape[0] 
     L = pt_result.shape[1]
     gt_result = np.zeros(pt_result.shape)
